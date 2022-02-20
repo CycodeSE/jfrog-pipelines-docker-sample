@@ -42,9 +42,13 @@ apt-get update -qq
 apt-get install -y -q git="$GIT_VERSION"
 
 
-JFROG_VERSION=1.33.2
-echo "================= Adding jfrog-cli $JFROG_VERSION  ================"
-wget -nv https://api.bintray.com/content/jfrog/jfrog-cli-go/"$JFROG_VERSION"/jfrog-cli-linux-amd64/jfrog?bt_package=jfrog-cli-linux-amd64 -O jfrog
-sudo chmod +x jfrog
-mv jfrog /usr/bin/jfrog
+#JFROG_VERSION=1.33.2
+#echo "================= Adding jfrog-cli $JFROG_VERSION  ================"
+#wget -nv https://api.bintray.com/content/jfrog/jfrog-cli-go/"$JFROG_VERSION"/jfrog-cli-linux-amd64/jfrog?bt_package=jfrog-cli-linux-amd64 -O jfrog
+#sudo chmod +x jfrog
+#mv jfrog /usr/bin/jfrog
 
+wget -qO - https://releases.jfrog.io/artifactory/jfrog-gpg-public/jfrog_public_gpg.key | sudo apt-key add -
+echo "deb https://releases.jfrog.io/artifactory/jfrog-debs xenial contrib" | sudo tee -a /etc/apt/sources.list;
+apt update;
+apt install -y jfrog-cli-v2-jf;
