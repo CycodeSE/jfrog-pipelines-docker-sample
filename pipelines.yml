@@ -11,8 +11,8 @@ resources:
     type: Image
     configuration:
       registry: JFrogArtifactory                   # <-- replace with your artifactory integration
-      sourceRepository: example-repo-local               # <-- required if registry is Artifactory
-      imageName: https://cycodedemo.jfrog.io/artifactory/example-repo-local/dbp  # < -- replace with your image path and name
+      sourceRepository: docker-local               # <-- required if registry is Artifactory
+      imageName: https://cycodedemo.jfrog.io/artifactory/docker-local/dbp  # < -- replace with your image path and name
       imageTag: latest
       autoPull: true
       
