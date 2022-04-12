@@ -32,7 +32,7 @@ resources:
       
 
 pipelines:
-  - name: girish_docker_pipeline
+  - name: girish_docker_pipeline_with_vulnerable_package
     steps:
       - name: docker_build
         type: DockerBuild
