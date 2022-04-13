@@ -1,13 +1,13 @@
 resources:
-  - name: dbp_repo
+  - name: dbp_repo_vulnerable
     type: GitRepo
     configuration:
       gitProvider: GitHub                          # <-- replace with your integration
-      path: CycodeSE/jfrog-pipelines-docker-sample # <-- replace with your repository name
+      path: cryptonomicoin/jfrog-pipelines-docker-sample # <-- replace with your repository name
       branches:
-        include: master
+        include: add-vulnerabile-package 
 
-  - name: dbp_image
+  - name: dbp_image_vulnerable
     type: Image
     configuration:
       registry: JFrogArtifactory                   # <-- replace with your artifactory integration
@@ -16,65 +16,65 @@ resources:
       imageTag: latest
       autoPull: true
       
-  - name: dbp_build_info
+  - name: dbp_build_info_vulnerable
     type: BuildInfo
     configuration:
       sourceArtifactory: JFrogArtifactory
-      buildName: dbp_build
+      buildName: dbp_build_vulnerable
       buildNumber: 1    
 
-  - name: dbp_promoted_build_info
+  - name: dbp_promoted_build_info_vulnerable
     type: BuildInfo
     configuration:
       sourceArtifactory: JFrogArtifactory
-      buildName: dbp_build
+      buildName: dbp_build_vulnerable
       buildNumber: 1
       
 
 pipelines:
-  - name: girish_docker_pipeline
+  - name: girish_docker_pipeline_with_vulnerable_package
     steps:
       - name: docker_build
         type: DockerBuild
         configuration:
-          affinityGroup: dbp_group
+          affinityGroup: dbp_group_vulnerable
           dockerFileLocation: .
           dockerFileName: Dockerfile
           dockerImageName: cycodedemo.jfrog.io/docker-local/dbp  # replace with your image path and name
           dockerImageTag: ${run_number}
           inputResources:
-            - name: dbp_repo
+            - name: dbp_repo_vulnerable
           integrations:
             - name: JFrogArtifactory                 # <-- replace with your artifactory integration
 
       - name: docker_push
         type: DockerPush
         configuration:
-          affinityGroup: dbp_group
+          affinityGroup: dbp_group_vulnerable
           targetRepository: docker-local
           integrations:
             - name: JFrogArtifactory                 # <-- replace with your artifactory integration
           inputSteps:
             - name: docker_build
           outputResources:
-            - name: dbp_image
+            - name: dbp_image_vulnerable
 
-      - name: publish_dbp_build
+      - name: publish_dbp_build_vulnerable
         type: PublishBuildInfo
         configuration:
           inputSteps:
             - name: docker_push
           outputResources:
-            - name: dbp_build_info
+            - name: dbp_build_info_vulnerable
 
-      - name: promote_dbp_build
+      - name: promote_dbp_build_vulnerable
         type: PromoteBuild
         configuration:
           targetRepository: demo-pipelines
           integrations:
             - name: JFrogArtifactory
           inputResources:
-            - name: dbp_build_info
+            - name: dbp_build_info_vulnerable
           outputResources:
-            - name: dbp_promoted_build_info
+            - name: dbp_promoted_build_info_vulnerable
 
