@@ -3,7 +3,7 @@ resources:
     type: GitRepo
     configuration:
       gitProvider: GitHub                          # <-- replace with your integration
-      path: CycodeSE/jfrog-pipelines-docker-sample # <-- replace with your repository name
+      path: cryptonomicoin/jfrog-pipelines-docker-sample # <-- replace with your repository name
       branches:
         include: master
 
