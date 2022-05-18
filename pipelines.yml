@@ -66,15 +66,3 @@ pipelines:
             - name: docker_push
           outputResources:
             - name: dbp_build_info
-
-      - name: promote_dbp_build
-        type: PromoteBuild
-        configuration:
-          targetRepository: demo-pipelines
-          integrations:
-            - name: JFrogArtifactory
-          inputResources:
-            - name: dbp_build_info
-          outputResources:
-            - name: dbp_promoted_build_info
-
