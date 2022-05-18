@@ -32,7 +32,7 @@ resources:
       
 
 pipelines:
-  - name: girish_docker_pipeline
+  - name: girish_sample_docker_pipeline
     steps:
       - name: docker_build
         type: DockerBuild
